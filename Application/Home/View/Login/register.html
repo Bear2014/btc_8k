@@ -73,7 +73,7 @@
 				</div>
 				<div class="reg_input_box reg-fb">
 					<div class="reg_title">{:L('login.yaoqingma')}：</div>
-					<input id="invit" name="invite" type="text" placeholder="{:L('register.qingshuruyaoqingma')}" value="{$Think.session.invit}"
+					<input id="invit" name="invite" type="text" placeholder="{:L('register.qingshuruyaoqingma1')}" value="{$Think.session.invit}"
 					<notempty name="Think.session.invit">readonly</notempty> />
 				</div>
 				<div class="reg_radio_box">
@@ -232,7 +232,7 @@
     function SendCode() {
         var areaCode = '86';
         var moble = $("#username").val();
-        alert('由于您尚未购买短息服务，所以展示取消短信验证服务！点击确认。');
+        alert('由于您尚未购买短息服务，所以暂时取消短信验证服务！点击确认。');
         return;
         
         if (moble == null || moble == "") {
