@@ -970,6 +970,8 @@ Enter the key if you can’t scan the barcode：GQEQAZNVCJMJWZOY',
     'register.qingchongfudenglumima' => 'Should be the same with above password',
     'register.qingshuruyaoqingma1' => 'Optional', //选填
     'register.qingshuruyaoqingma2' => 'Required', //必填
+    'register.shoujiyanzhengma' => 'mobile verification code',//
+    'register.qingshurushoujiyanzhengma' => 'please enter you mobile verification code',//
     
      //Sign up(register2)
     'register.jiaoyimima' => 'transaction password',

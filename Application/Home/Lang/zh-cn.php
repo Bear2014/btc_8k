@@ -971,6 +971,8 @@ return array(
     'register.qingchongfudenglumima' => '重复输入密码，两次需要一致',
     'register.qingshuruyaoqingma1' => '选填', //选填
     'register.qingshuruyaoqingma2' => '必填', //必填
+    'register.shoujiyanzhengma' => '手机验证码',//
+    'register.qingshurushoujiyanzhengma' => '请输入手机验证码',//
 
     //Sign up(register2)
     'register.jiaoyimima' => '交易密码',

@@ -1,5 +1,4 @@
 <?php
-//dezend by http://www.yunlu99.com/ QQ:270656184
 namespace Home\Controller;
 
 class LoginController extends HomeController
@@ -71,7 +70,8 @@ class LoginController extends HomeController
 		$mo->execute('set autocommit=0');
 		$mo->execute('lock tables movesay_user write , movesay_user_coin write ');
 		$rs = array();
-		$rs[] = $mo->table('movesay_user')->add(array('username' => $username, 'password' => md5($password), 'invit' => $tradeno, 'tpwdsetting' => 1, 'invit_1' => $invit_1, 'invit_2' => $invit_2, 'invit_3' => $invit_3, 'addip' => get_client_ip(), 'addr' => get_city_ip(), 'addtime' => time(), 'status' => 1));
+		//$rs[] = $mo->table('movesay_user')->add(array('username' => $username, 'password' => md5($password), 'invit' => $tradeno, 'tpwdsetting' => 1, 'invit_1' => $invit_1, 'invit_2' => $invit_2, 'invit_3' => $invit_3, 'addip' => get_client_ip(), 'addr' => get_city_ip(), 'addtime' => time(), 'status' => 1));
+		$rs[] = $mo->table('movesay_user')->add(array('username' => $username, 'moble'=>$username, 'mobletime'=>time(),'password' => md5($password), 'invit' => $tradeno, 'tpwdsetting' => 1, 'invit_1' => $invit_1, 'invit_2' => $invit_2, 'invit_3' => $invit_3, 'addip' => get_client_ip(), 'addr' => get_city_ip(), 'addtime' => time(), 'status' => 1));
 		$rs[] = $mo->table('movesay_user_coin')->add(array('userid' => $rs[0]));
 
 		if (check_arr($rs)) {
@@ -156,18 +156,32 @@ class LoginController extends HomeController
 		$this->display();
 	}
 
-	public function chkUser($username)
+    //原来的chkUser
+	public function chkUserXXXX($username)
 	{
+
 		if (!check($username, 'username')) {
 			$this->error('用户名格式错误！');
 		}
-
+       
 		if (M('User')->where(array('username' => $username))->find()) {
-			$this->error('用户名已存在');
+			$this->error('该用户已存在');
 		}
 
 		$this->success('');
 	}
+
+    public function chkUser($username)
+    { 
+    	$pattern = "/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$/";
+    	$res = preg_match($pattern,$username,$matches);
+        if(!$res){
+        	$this->error('手机号码格式错误');
+        }
+      
+        $this->success('');
+    }
+
 
 	public function submit($username, $password, $verify = NULL)
 	{

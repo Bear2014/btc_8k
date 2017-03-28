@@ -19,21 +19,41 @@
 			</div>
 			<div id="reg_index" class="reg_wrap">
 				<div class="reg_input_box reg-fb" id="username_reg">
+				    <!--
 					<div class="reg_title">{:L('login.yonghuming')}：</div>
 					<input type="text" id="username" value="" onblur="regusername()" />
 					<div id="username-msg" class="form_explain" data-explain="{:L('register.qingshuruyongfuming')}<em></em>" style="display: none;">
                         {:L('register.qingshuruyongfuming')}
 						<em></em>
 					</div>
-					
+					-->
+                    
+                    <!--用户名就是手机号-->
+                    <div class="reg_title">{:L('user.shoujihaoma')}：</div>
+					<input type="text" id="username" value="" onblur="regusername()" />
+					<div id="username-msg" class="form_explain" data-explain="{:L('register.qingshuruyongfuming')}<em></em>" style="display: none;">
+                        {:L('user.shoujihaoma')}
+						<em></em>
+					</div>
+
 				</div>
+
 				<div class="reg_input_box reg-fb" id="reg_first_verify">
+				    <!--
 					<div class="reg_title">{:L('login.yanzhengma')}：</div>
 					<input type="text" id="verify" value="" onblur="regverify()" style="width: 165px; box-shadow: none; " />
 					<div id="verify-msg" class="form_explain" data-explain="{:L('login.shuruyanzhengma')}<em></em>" style="display: none;">
 						{:L('login.shuruyanzhengma')}<em></em>
 					</div>
 					<img class="codeImg" src="{:U('Verify/code')}" title="换一张" onclick="this.src=this.src+'?t='+Math.random()">
+					-->
+
+                    <div class="reg_title">{:L('register.shoujiyanzhengma')}：</div>
+					<input type="text" id="verify" value="" onblur="regverify()" style="width: 165px; box-shadow: none; " />
+					<input id="regBtn" type="button" class="getyzm" value="免费{:L('user.huoquyanzhengma')}" onclick="SendCode()" style="width: 120px;height:38px">
+					<div id="verify-msg" class="form_explain" data-explain="{:L('login.shuruyanzhengma')}<em></em>" style="display: none;">
+						{:L('register.qingshurushoujiyanzhengma')}<em></em>
+					</div>
 				</div>
 				<div class="reg_input_box reg-fb">
 					<div class="reg_title">{:L('login.denglumima')}：</div>
@@ -140,7 +160,8 @@
 	function regusername(){
 		var username = $('#username').val();
 		if(username==""||username==null){
-			formMsg('username', 0, '{:L('login.shuruyonghuming')}');
+			//formMsg('username', 0, '{:L('login.shuruyonghuming')}');
+			formMsg('username', 0, '{:L('user.shoujihaoma')}');
 			return false;
 		}
 		$.post("{:U('Login/chkUser')}",{username:username},function(ret){
@@ -208,6 +229,51 @@
 	}
 	
 
+    function SendCode() {
+        var areaCode = '86';
+        var moble = $("#username").val();
+        
+        if (moble == null || moble == "") {
+            layer.tips('{:L('user.shoujihaoma')}', '#moble', {tips: 3});
+            return false;
+        }
+       
+        $.post("{:U('Verify/real')}", {
+            moble: areaCode + moble,
+            verify: verify
+        }, function (data) {
+            if (data.status == 1) {
+                //刷新验证码
+                $(".reloadverify").click();
+                $("#verify").val('');
+                $('#regBtn').attr("disabled", "disabled");
+                layer.msg(data.info, {icon: 1});
+                var obj = $('#regBtn');
+                var wait = 60;
+                var interval = setInterval(function () {
+                    obj.css('backgroundColor', '#999B9C');
+                    obj.val(wait + '{:L('user.zaicifasong')}');
+                    wait--;
+                    if (wait < 0) {
+                        clearInterval(interval);
+                        obj.val('{:L('user.huoquyanzhengma')}');
+                        obj.css('backgroundColor', '#e55600');
+                    }
+                    ;
+                }, 1000);
+            } else {
+                //刷新验证码
+                $(".reloadverify").click();
+                $("#verify").val('');
+                layer.msg(data.info, {icon: 2});
+                if (data.url) {
+                    window.location = data.url;
+                }
+            }
+        }, "json");
+    }
+
+
 	function Update(){
 		var username=$("#username").val();
 		var password=$("#password").val();
@@ -215,7 +281,7 @@
 		var invit=$("#invit").val();
 		var verify=$("#verify").val();
 		if(username==""||username==null){
-			formMsg('username', 0, '{:L('login.shuruyonghuming')}');
+			formMsg('username', 0, '{:L('user.shoujihaoma')}');
 			return false;
 		}
 		if(password==""||password==null){
