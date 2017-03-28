@@ -29,7 +29,26 @@
 					-->
                     
                     <!--用户名就是手机号-->
+                    <!--
                     <div class="reg_title">{:L('user.shoujihaoma')}：</div>
+					<input type="text" id="username" value="" onblur="regusername()" />
+					<div id="username-msg" class="form_explain" data-explain="{:L('register.qingshuruyongfuming')}<em></em>" style="display: none;">
+                        {:L('user.shoujihaoma')}
+						<em></em>
+					</div>
+                    -->
+
+			        <div class="reg_title">{:L('user.shoujihaoma')}：</div>
+			        <!--
+			        <select type="areCode">
+			        	<option value="86">
+			        		<img src="/Public/Home/images/chian_flag.png" style="width:20px;height:20px;" />
+			        	</option>
+			        </select>
+                    -->
+
+                    <img src="/Public/Home/images/chian_flag.png" style="width:20px;height:20px;" class="flag" />
+
 					<input type="text" id="username" value="" onblur="regusername()" />
 					<div id="username-msg" class="form_explain" data-explain="{:L('register.qingshuruyongfuming')}<em></em>" style="display: none;">
                         {:L('user.shoujihaoma')}
@@ -322,6 +341,13 @@
 	}
 	
 </script>
+
+
+<style type="text/css">
+	.flag{
+		margin-top:10px;
+	}
+</style>
 
 <!--尾部文件-->
 <include file="Public:footer" />
