@@ -232,12 +232,14 @@
     function SendCode() {
         var areaCode = '86';
         var moble = $("#username").val();
+        alert('由于您尚未购买短息服务，所以展示取消短信验证服务！点击确认。');
+        return;
         
         if (moble == null || moble == "") {
             layer.tips('{:L('user.shoujihaoma')}', '#moble', {tips: 3});
             return false;
         }
-        
+
        
         $.post("{:U('Verify/real')}", {
             moble: areaCode + moble,

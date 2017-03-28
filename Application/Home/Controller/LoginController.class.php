@@ -10,13 +10,21 @@ class LoginController extends HomeController
 
 	public function upregister($username, $password, $repassword, $verify, $invit)
 	{
-		if (!check_verify(strtoupper($verify))) {
-			$this->error('图形验证码错误!');
+		/*  取消短信验证
+		if (!check($verify, 'd')) {
+			$this->error('短信验证码格式错误！');
 		}
 
+		if ($verify != session('real_verify')) {
+			$this->error('短信验证码错误！');
+		}
+		*/
+
+        /*
 		if (!check($username, 'username')) {
 			$this->error('用户名格式错误！');
 		}
+		*/
 
 		if (!check($password, 'password')) {
 			$this->error('登录密码格式错误！');
