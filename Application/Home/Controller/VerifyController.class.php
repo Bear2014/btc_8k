@@ -18,15 +18,18 @@ class VerifyController extends HomeController
 		$verify->entry(1);
 	}
 
-	public function real($moble, $verify)
+	//public function real($moble, $verify)
+	public function real($moble)
 	{
 		if (!userid()) {
 			redirect('/#login');
 		}
 
+        /*
 		if (!check_verify(strtoupper($verify))) {
 			$this->error('图形验证码错误!');
 		}
+		*/
 
 		if (!check($moble, 'moble')) {
 			$this->error('手机号码格式错误！');

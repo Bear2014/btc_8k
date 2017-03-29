@@ -10,7 +10,7 @@ class LoginController extends HomeController
 
 	public function upregister($username, $password, $repassword, $verify, $invit)
 	{
-		/*  取消短信验证
+
 		if (!check($verify, 'd')) {
 			$this->error('短信验证码格式错误！');
 		}
@@ -18,13 +18,12 @@ class LoginController extends HomeController
 		if ($verify != session('real_verify')) {
 			$this->error('短信验证码错误！');
 		}
-		*/
+		
 
-        /*
-		if (!check($username, 'username')) {
-			$this->error('用户名格式错误！');
+		if (!check($username, 'd')) {
+			$this->error('手机号码格式错误！');
 		}
-		*/
+		
 
 		if (!check($password, 'password')) {
 			$this->error('登录密码格式错误！');
@@ -35,7 +34,7 @@ class LoginController extends HomeController
 		}
 
 		if (M('User')->where(array('username' => $username))->find()) {
-			$this->error('用户名已存在');
+			$this->error('手机号码已存在');
 		}
 
 		if (!$invit) {
@@ -99,6 +98,7 @@ class LoginController extends HomeController
 		$this->display();
 	}
 
+
 	public function upregister2($paypassword, $repaypassword)
 	{
 		if (!check($paypassword, 'password')) {
@@ -108,6 +108,7 @@ class LoginController extends HomeController
 		if ($paypassword != $repaypassword) {
 			$this->error('确认密码错误！');
 		}
+
 
 		if (!session('reguserId')) {
 			$this->error('非法访问！');
