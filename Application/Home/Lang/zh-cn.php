@@ -287,7 +287,8 @@ return array(
     'finance.suoshuquyuzhi1' => '右区市场',
     'finance.mycaozuo' => '操作',
     'finance.mycaozuozhi' => '修改安置人',
-    
+    'finance.zhuangeiqitahuiyuan' => '转出给其他会员',
+    'finance.qingtianxieniyaozhuangeidehuiyuanming' => '请填写您要转给的用户名',
     
     // game
     'game.wenxintishi' => '温馨提示',

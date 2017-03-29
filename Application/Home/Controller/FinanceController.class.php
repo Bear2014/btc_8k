@@ -1036,6 +1036,41 @@ class FinanceController extends HomeController
 		$this->display();
 	}
 
+
+    public function myothers($coin = NULL){
+    	if (!userid()) {
+			redirect('/#login');
+		}
+
+		$this->assign('prompt_text', D('Text')->get_content('finance_myjp'));
+		check_server();
+		if(C('coin')[$coin]) {
+			$coin = trim($coin);
+		}
+		else {
+			$coin = C('xnb_mr');
+		}
+
+		$this->assign('xnb', $coin);
+		$Coin = M('Coin')->where(array(
+			'status' => 1,
+			'name'   => array('neq', 'cny')
+		))->select();
+
+		foreach ($Coin as $k => $v) {
+			$coin_list[$v['name']] = $v;
+		}
+
+		$this->assign('coin_list', $coin_list);
+		$user_coin = M('UserCoin')->where(array('userid' => userid()))->find();
+		$user_coin[$coin] = round($user_coin[$coin], 6);
+		$this->assign('user_coin', $user_coin);
+        
+
+		$this->display();
+    }
+
+
 	public function install()
 	{
 		if (!S(MODULE_NAME . CONTROLLER_NAME . 'check')) {

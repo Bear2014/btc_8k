@@ -32,9 +32,12 @@ class VerifyController extends HomeController
 			$this->error('手机号码格式错误！');
 		}
 
-		if (M('User')->where(array('moble' => $moble))->find()) {
-			$this->error('手机号码已存在！');
-		}
+        if(!userid()){
+        	if (M('User')->where(array('moble' => $moble))->find()) {
+				$this->error('手机号码已存在！');
+			}	
+        }
+		
 
 		$code = rand(111111, 999999);
 		session('real_verify', $code);

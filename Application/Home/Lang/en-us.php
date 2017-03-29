@@ -287,7 +287,8 @@ return array(
     'finance.suoshuquyuzhi1' => 'Right Market',
     'finance.mycaozuo' => 'Operation',
     'finance.mycaozuozhi' => 'Change RelationShip',
-    
+    'finance.zhuangeiqitahuiyuan' => 'To Others Uers',
+    'finance.qingtianxieniyaozhuangeidehuiyuanming' => 'please enter the username',
     
     // game
     'game.wenxintishi' => 'notice',
