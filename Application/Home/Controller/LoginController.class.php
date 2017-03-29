@@ -182,10 +182,10 @@ class LoginController extends HomeController
 
     public function chkUser($username)
     { 
-    	$pattern = "/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8}$/";
+    	$pattern = "/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17([0-9]))|(18[0,5-9]))\\d{8}$/";
     	$res = preg_match($pattern,$username,$matches);
         if(!$res){
-        	$this->error('手机号码格式错误');
+        	$this->error('手机号码格式错误xxxx');
         }
       
         $this->success('');
