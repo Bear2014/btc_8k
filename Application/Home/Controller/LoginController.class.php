@@ -179,6 +179,7 @@ class LoginController extends HomeController
 
 		$this->success('');
 	}
+	
 
     public function chkUser($username)
     { 
