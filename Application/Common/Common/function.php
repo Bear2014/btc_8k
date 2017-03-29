@@ -605,6 +605,7 @@ function send_moble($moble, $content)
 	}
 }
 
+
 function addtime($time = NULL, $type = NULL)
 {
 	if (empty($time)) {

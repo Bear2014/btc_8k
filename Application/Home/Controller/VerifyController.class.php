@@ -21,13 +21,10 @@ class VerifyController extends HomeController
 	//public function real($moble, $verify)
 	public function real($moble)
 	{
-		if (!userid()) {
-			redirect('/#login');
-		}
 
         /*
-		if (!check_verify(strtoupper($verify))) {
-			$this->error('图形验证码错误!');
+		if (!userid()) {
+			redirect('/#login');
 		}
 		*/
 
@@ -49,6 +46,7 @@ class VerifyController extends HomeController
 		else {
 			$this->error('短信验证码发送失败，请重新点击发送');
 		}
+	
 	}
 
 	public function mytx()
