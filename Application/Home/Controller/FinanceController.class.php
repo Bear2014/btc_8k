@@ -1113,7 +1113,7 @@ class FinanceController extends HomeController
                 if(!$res){
                 	$this->ajaxReturn(array('status'=>4,'info'=>'用户名不存在'));
                 }else{
-                	$db_paypassword = M('user') ->where(array('id'=>userid()) ->find();
+                	$db_paypassword = M('user') ->where(array('id'=>userid())) ->find();
                     if(md5($paypassword) != $db_paypassword['paypassword']){
                     	$this->ajaxReturn(array('status'=>5,'info'=>'交易密码不正确','data'=>md5($paypassword),'data2'=>$res['[paypassword']));
                     }
