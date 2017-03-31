@@ -1062,13 +1062,96 @@ class FinanceController extends HomeController
 		}
 
 		$this->assign('coin_list', $coin_list);
+
+
 		$user_coin = M('UserCoin')->where(array('userid' => userid()))->find();
 		$user_coin[$coin] = round($user_coin[$coin], 6);
 		$this->assign('user_coin', $user_coin);
+
+		$user_moble = M('user')->where(array('id'=>userid())) ->find();
+		$this->assign('user_moble',$user_moble['moble']);
+
         
+        $myothers = M('Myothers_log') ->where(array('userid'=>userid())) ->select();
+        $this->assign('others',$myothers);
 
 		$this->display();
     }
+
+     public function upmyothers(){
+
+            $coin = I('post.coin');
+            $username = I('post.username');
+            $num= I('post.num');
+            $paypassword= I('post.paypassword');
+            $moble_verify= I('post.moble_verify');
+
+            if(!check($coin,'w')){
+            	$this->ajaxReturn(array('status'=>2,'info'=>'币种选择错误'));
+            }
+
+            if(!check($num,'d')){
+            	$this->ajaxReturn(array('status'=>6,'info'=>'输入的数量不正确'));
+            }
+
+            /*
+            if(!check($moble_verify,'d')){
+            	$this->ajaxReturn(array('status'=>7,'info'=>'手机验证格式不正确'));
+            }
+
+            if($moble_verify != session('mobile#real_verify')){
+            	$this->ajaxReturn(array('status'=>8,'info'=>'手机验证不正确'));
+            }
+            */
+
+            if(!check($username,'require')){
+            	$this->ajaxReturn(array('status'=>3,'info'=>'用户名不能为空'));
+            }else{
+            	$res = M('user') ->where(array('username'=>$username,'moble'=>$username)) ->find();
+                if(!$res){
+                	$this->ajaxReturn(array('status'=>4,'info'=>'用户名不存在'));
+                }else{
+                    if(md5($paypassword) != $res['paypassword']){
+                    	$this->ajaxReturn(array('status'=>5,'info'=>'交易密码不正确'));
+                    }
+
+                    $userCoin = M('User_coin') ->where(array('userid'=>userid())) ->find();
+                    if($num<=$userCoin[$coin]){
+                        $mo = M();
+                        $mo ->execute('set autocommit=0');
+                        $mo ->execute('lock tables movesay_user_coin write, movesay_myothers_log write');
+
+                        $rs = array();
+                    	$rs[] = $mo ->table('movesay_user_coin') ->where(array('userid'=>userid())) ->setDec($coin,$num);//96
+                        $rs[] = $mo ->table('movesay_user_coin') ->where(array('userid'=>$res['id'])) ->setInc($coin,$num);//95
+
+                        $data = array(
+                        	'userId' =>userid(), //转账人
+                        	'othersId' => $res['id'],//接受人
+                        	'coin' => $coin,//币种
+                        	'num' => $num,//数量
+                        	'time' => time() //时间
+                        	);
+                        $rs[] = $mo ->table('movesay_myothers_log') ->add($data);
+
+                        if(check_arr($rs)){
+                        	$mo->execute('commit');
+                        	$mo->execute('unlock tables');
+                        	$this->ajaxReturn(array('status'=>1,'info'=>'转出成功'));
+                        }else{
+                            $mo ->execute('rollback');
+                            $this->ajaxReturn(array('status'=>110,'info'=>'转出失败'));
+                        }
+
+                    }else{
+                    	$this->ajaxReturn(array('status'=>10,'info'=>'转出数量过多'));
+                    }
+                    
+                }
+            }  
+
+ }
+
 
 
 	public function install()

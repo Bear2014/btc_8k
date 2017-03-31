@@ -132,14 +132,14 @@
                         <!--
                             <th width="">{:L('finance.huiyuanming')}</th>
                             -->
-                            <th width="">{:L('finance.umsname')}</th>
+                            <th width="">{:L('finance.yonghuming')}</th>
                             <th width="">{:L('finance.zhuanchubizhong')}</th>
                             <th width="">{:L('finance.zhuanchushuliang')}</th>
                             <th width="">{:L('finance.zhuanchushijian')}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <volist name="list" id="vo">
+                        <volist name="myothers" id="vo">
                             <tr>
                                 <td>{$vo.name_ums}</td>
                                 <td>{$vo.coin}</td>
@@ -165,8 +165,8 @@
 
     function SendCode() {
         $('#regBtn').attr("disabled", "disabled");
-        var moble = $("#moble_verify").val();
-        alert(moble);
+        //var moble = $("#moble_verify").val();
+        var moble = "{$user_moble}";
         $.post("{:U('Verify/real')}", {moble:moble}, function (data) {
             alert(data.status);
             if (data.status == 1) {
@@ -215,16 +215,18 @@
             return false;
         }
 
-        $.post("{:U('Finance/upmyums')}", {
+        //$.post("{:U('Finance/upmyothers')}", {
+        $.post("/Finance/upmyothers", {
             coin: coin,
-            username: username,
+            username: username, 
             num: num,
             paypassword: paypassword,
             moble_verify: moble_verify
         }, function (data) {
+            console.log(data.status);
             if (data.status == 1) {
                 layer.msg(data.info, {icon: 1});
-                window.location = "{:U('Finance/myums')}?coin=" + coin;
+                window.location = "{:U('Finance/myothers')}?coin=" + coin;
             } else {
                 layer.msg(data.info, {icon: 2});
             }

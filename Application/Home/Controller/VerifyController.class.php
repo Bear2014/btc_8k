@@ -21,13 +21,6 @@ class VerifyController extends HomeController
 	//public function real($moble, $verify)
 	public function real($moble)
 	{
-
-        /*
-		if (!userid()) {
-			redirect('/#login');
-		}
-		*/
-
 		if (!check($moble, 'moble')) {
 			$this->error('手机号码格式错误！');
 		}
@@ -38,7 +31,6 @@ class VerifyController extends HomeController
 			}	
         }
 		
-
 		$code = rand(111111, 999999);
 		session('real_verify', $code);
 		$content = '您正在进行手机操作，您的验证码是' . $code;
