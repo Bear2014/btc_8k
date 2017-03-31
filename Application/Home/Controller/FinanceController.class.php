@@ -1071,10 +1071,12 @@ class FinanceController extends HomeController
 		$user_moble = M('user')->where(array('id'=>userid())) ->find();
 		$this->assign('user_moble',$user_moble['moble']);
 
-        
-        $myothers = M('Myothers_log') ->where(array('userid'=>userid())) ->select();
+        $myothers = M('Myothers_log') ->where(array('userId'=>userid())) ->select();
+        foreach($myothers as $k=>$v){
+            $myothers[$k]['othersname'] = M('User') ->where(array('id'=>$v['othersid'])) ->find()['username'];  
+        }
         $this->assign('others',$myothers);
-
+ 
 		$this->display();
     }
 
