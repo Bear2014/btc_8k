@@ -1080,6 +1080,21 @@ class FinanceController extends HomeController
 		$this->display();
     }
 
+    public function test(){
+    	//25d55ad283aa400af464c76d713c07ad
+
+    	//25f9e794323b453885f5181f1b624d0b
+    	  25f9e794323b453885f5181f1b624d0b
+    	echo md5('123456789');
+
+
+
+    	25f9e794323b453885f5181f1b624d0b
+
+    	25f9e794323b453885f5181f1b624d0b
+
+    }
+
      public function upmyothers(){
 
             $coin = I('post.coin');
@@ -1113,8 +1128,9 @@ class FinanceController extends HomeController
                 if(!$res){
                 	$this->ajaxReturn(array('status'=>4,'info'=>'用户名不存在'));
                 }else{
-                    if(md5($paypassword) != $res['paypassword']){
-                    	$this->ajaxReturn(array('status'=>5,'info'=>'交易密码不正确'));
+                	$db_paypassword = M('user') ->where(array('id'=>userid()) ->find();
+                    if(md5($paypassword) != $db_paypassword['paypassword']){
+                    	$this->ajaxReturn(array('status'=>5,'info'=>'交易密码不正确','data'=>md5($paypassword),'data2'=>$res['[paypassword']));
                     }
 
                     $userCoin = M('User_coin') ->where(array('userid'=>userid())) ->find();
