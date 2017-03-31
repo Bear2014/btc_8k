@@ -1080,21 +1080,6 @@ class FinanceController extends HomeController
 		$this->display();
     }
 
-    public function test(){
-    	//25d55ad283aa400af464c76d713c07ad
-
-    	//25f9e794323b453885f5181f1b624d0b
-    	  25f9e794323b453885f5181f1b624d0b
-    	echo md5('123456789');
-
-
-
-    	25f9e794323b453885f5181f1b624d0b
-
-    	25f9e794323b453885f5181f1b624d0b
-
-    }
-
      public function upmyothers(){
 
             $coin = I('post.coin');
